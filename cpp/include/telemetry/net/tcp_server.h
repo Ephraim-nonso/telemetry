@@ -10,6 +10,13 @@
 
 namespace telemetry::net {
 
+// Cross-platform socket handle representation.
+#ifdef _WIN32
+using SocketHandle = std::uintptr_t;
+#else
+using SocketHandle = int;
+#endif
+
 struct TcpServerConfig final {
   const char* host = "0.0.0.0";
   std::uint16_t port = 9000;
@@ -24,10 +31,10 @@ class TcpServer final {
   Status run_forever();
 
  private:
-  Status handle_command(std::string_view cmd, int client_fd);
-  Status write_json_metrics(int client_fd, const telemetry::MetricsSnapshot& snap, Status collect_status);
-  Status write_json_ok(int client_fd, const char* msg);
-  Status write_json_error(int client_fd, const char* msg);
+  Status handle_command(std::string_view cmd, SocketHandle client_fd);
+  Status write_json_metrics(SocketHandle client_fd, const telemetry::MetricsSnapshot& snap, Status collect_status);
+  Status write_json_ok(SocketHandle client_fd, const char* msg);
+  Status write_json_error(SocketHandle client_fd, const char* msg);
 
   metrics::Collector& collector_;
   TcpServerConfig cfg_;

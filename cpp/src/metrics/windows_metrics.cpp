@@ -19,7 +19,7 @@ class WinCpuUsageSource final : public MetricSource {
  public:
   WinCpuUsageSource() {
     if (PdhOpenQuery(nullptr, 0, &query_) != ERROR_SUCCESS) return;
-    if (PdhAddEnglishCounter(query_, L"\\Processor(_Total)\\% Processor Time", 0, &counter_) != ERROR_SUCCESS) return;
+    if (PdhAddEnglishCounterW(query_, L"\\Processor(_Total)\\% Processor Time", 0, &counter_) != ERROR_SUCCESS) return;
     (void)PdhCollectQueryData(query_);  // prime
     ok_ = true;
   }

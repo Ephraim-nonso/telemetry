@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(telemetryd
   src/main.cpp
   src/net/tcp_server.cpp
+  src/net/tcp_server_win.cpp
   src/net/protocol.cpp
   src/metrics/collector.cpp
   src/metrics/default_sources.cpp
@@ -26,7 +27,7 @@ endif()
 
 if(WIN32)
   target_sources(telemetryd PRIVATE src/metrics/windows_metrics.cpp)
-  target_link_libraries(telemetryd PRIVATE pdh)
+  target_link_libraries(telemetryd PRIVATE pdh ws2_32)
 endif()
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
