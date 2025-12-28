@@ -1,0 +1,11 @@
+build/
+cmake-build-*/
+cpp/build/
+**/__pycache__/
+**/*.pyc
+python/.venv/
+.vscode/
+.idea/
+.DS_Store
+
+

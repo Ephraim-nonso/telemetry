@@ -64,3 +64,20 @@ Line-based, TCP:
 - On **Linux**, metrics are read from `/proc` (CPU/memory/uptime) and `/sys` (temperature, best-effort).
 - On **macOS** and **Windows** (Non-linux), CPU/memory/uptime use native APIs.
 - On other/unknown OSes, metrics fall back to **simulated** values.
+
+## Docker
+
+### Build + run agent
+
+```bash
+cd telemetry
+docker build -t telemetry:dev .
+docker run --rm -p 9000:9000 telemetry:dev
+```
+
+### Run agent + client (dashboard)
+
+```bash
+cd telemetry
+docker compose up --build
+```

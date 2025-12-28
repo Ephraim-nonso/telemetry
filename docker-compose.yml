@@ -1,0 +1,20 @@
+services:
+  agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["/app/telemetryd", "--host", "0.0.0.0", "--port", "9000", "--throttle-ms", "250"]
+    ports:
+      - "9000:9000"
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - agent
+    environment:
+      - PYTHONPATH=/app/python
+    command: ["python3", "-m", "telemetry_client.cli", "--host", "agent", "--port", "9000", "watch", "--interval", "1.0"]
+
+
