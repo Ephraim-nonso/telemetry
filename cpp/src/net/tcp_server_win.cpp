@@ -42,8 +42,8 @@ static bool set_nonblocking(SOCKET s) {
   return ioctlsocket(s, FIONBIO, &mode) == 0;
 }
 
-static SocketHandle to_handle(SOCKET s) { return static_cast<SocketHandle>(reinterpret_cast<std::uintptr_t>(s)); }
-static SOCKET to_socket(SocketHandle h) { return reinterpret_cast<SOCKET>(static_cast<std::uintptr_t>(h)); }
+static SocketHandle to_handle(SOCKET s) { return static_cast<SocketHandle>(s); }
+static SOCKET to_socket(SocketHandle h) { return static_cast<SOCKET>(h); }
 
 }  // namespace
 
